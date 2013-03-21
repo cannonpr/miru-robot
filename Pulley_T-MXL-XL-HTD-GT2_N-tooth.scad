@@ -20,10 +20,10 @@
 
 // tuneable constants
 
-teeth = 24;			// Number of teeth, standard Mendel T5 belt = 8, gives Outside Diameter of 11.88mm
+//teeth = 24;			// Number of teeth, standard Mendel T5 belt = 8, gives Outside Diameter of 11.88mm
 profile = 6;		// 1=MXL 2=40DP 3=XL 4=H 5=T2.5 6=T5 7=T10 8=AT5 9=HTD_3mm 10=HTD_5mm 11=HTD_8mm 12=GT2_2mm 13=GT2_3mm 14=GT2_5mm
 
-motor_shaft = 22.2;	// NEMA17 motor shaft exact diameter = 5
+//motor_shaft = 22.2;	// NEMA17 motor shaft exact diameter = 5
 m3_dia = 3.2;		// 3mm hole diameter
 m3_nut_hex = 1;		// 1 for hex, 0 for square nut
 m3_nut_flats = 5.7;	// normal M3 hex nut exact width = 5.5
@@ -60,20 +60,20 @@ m3_nut_points = 2*((m3_nut_flats/2)/cos(30)); // This is needed for the nut trap
 
 // The following set the pulley diameter for a given number of teeth
 
-MXL_pulley_dia = tooth_spacing (2.032,0.254);
-40DP_pulley_dia = tooth_spacing (2.07264,0.1778);
-XL_pulley_dia = tooth_spacing (5.08,0.254);
-H_pulley_dia = tooth_spacing (9.525,0.381);
-T2_5_pulley_dia = tooth_spaceing_curvefit (0.7467,0.796,1.026);
-T5_pulley_dia = tooth_spaceing_curvefit (0.6523,1.591,1.064);
-T10_pulley_dia = tooth_spacing (10,0.93);
-AT5_pulley_dia = tooth_spaceing_curvefit (0.6523,1.591,1.064);
-HTD_3mm_pulley_dia = tooth_spacing (3,0.381);
-HTD_5mm_pulley_dia = tooth_spacing (5,0.5715);
-HTD_8mm_pulley_dia = tooth_spacing (8,0.6858);
-GT2_2mm_pulley_dia = tooth_spacing (2,0.254);
-GT2_3mm_pulley_dia = tooth_spacing (3,0.381);
-GT2_5mm_pulley_dia = tooth_spacing (5,0.5715);
+MXL_pulley_dia = tooth_spacing (2.032,0.254, teeth);
+40DP_pulley_dia = tooth_spacing (2.07264,0.1778, teeth);
+XL_pulley_dia = tooth_spacing (5.08,0.254, teeth);
+H_pulley_dia = tooth_spacing (9.525,0.381, teeth);
+T2_5_pulley_dia = tooth_spaceing_curvefit (0.7467,0.796,1.026, teeth);
+T5_pulley_dia = tooth_spaceing_curvefit (0.6523,1.591,1.064, teeth);
+T10_pulley_dia = tooth_spacing (10,0.93, teeth);
+AT5_pulley_dia = tooth_spaceing_curvefit (0.6523,1.591,1.064, teeth);
+HTD_3mm_pulley_dia = tooth_spacing (3,0.381, teeth);
+HTD_5mm_pulley_dia = tooth_spacing (5,0.5715,teeth);
+HTD_8mm_pulley_dia = tooth_spacing (8,0.6858, teeth);
+GT2_2mm_pulley_dia = tooth_spacing (2,0.254, teeth);
+GT2_3mm_pulley_dia = tooth_spacing (3,0.381, teeth);
+GT2_5mm_pulley_dia = tooth_spacing (5,0.5715, teeth);
 
 // The following calls the pulley creation part, and passes the pulley diameter and tooth width to that module
 
@@ -94,15 +94,15 @@ GT2_5mm_pulley_dia = tooth_spacing (5,0.5715);
 
 // Functions
 
-function tooth_spaceing_curvefit (b,c,d)
+function tooth_spaceing_curvefit (b,c,d, teeth)
 	= ((c * pow(teeth,d)) / (b + pow(teeth,d))) * teeth ;
 
-function tooth_spacing(tooth_pitch,pitch_line_offset)
+function tooth_spacing(tooth_pitch,pitch_line_offset,teeth)
 	= (2*((teeth*tooth_pitch)/(3.14159265*2)-pitch_line_offset)) ;
 
 // Main Module
 
-module pulley( belt_type , pulley_OD , tooth_depth , tooth_width )
+module pulley( belt_type , pulley_OD , tooth_depth , tooth_width , teeth, motor_shaft )
 	{
 	echo (str("Belt type = ",belt_type,"; Number of teeth = ",teeth,"; Pulley Outside Diameter = ",pulley_OD,"mm "));
 	tooth_distance_from_centre = sqrt( pow(pulley_OD/2,2) - pow((tooth_width+additional_tooth_width)/2,2));

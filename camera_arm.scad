@@ -1,3 +1,5 @@
+use <../OpenSCAD_ServoArms/servo_arm.scad>
+
 //nuts etc
 /*
  *  OpenSCAD Metric Fastners Library (www.openscad.org)
@@ -147,14 +149,18 @@ translate([80/2,25/2,-14]){cylinder(h = 20, r=8/2, $fs=1);}
 }
 }
 
+
 module gear_module(){
+T5_pulley_dia = tooth_spaceing_curvefit (0.6523,1.591,1.064, 24, 22.2);
 difference(){
 union(){
-translate([80/2,25/2,-9]){pulley ( "T5" , T5_pulley_dia , 1.19 , 3.264 );}
+translate([80/2,25/2,-9]){pulley ( "T5" , T5_pulley_dia , 1.19 , 3.264 , 24);} //test_bevel_gear_pair();
 translate([80/2,25/2,-9.9]){cylinder(h = 11, r=22.4/2, $fs=1);}
 }
 
 translate([80/2,25/2,-10]){cylinder(h = 7, r=22.4/2, $fs=1);}
+translate([80/2,25/2,-10]){cylinder(h = 15, r=8.4/2, $fs=1);}
+
 
 #translate([(80/2)-15,25/2,-14]){cylinder(h = 20, r=2.1, $fs=1);}
 #translate([(80/2)+15,25/2,-14]){cylinder(h = 20, r=2.1, $fs=1);}
@@ -226,10 +232,22 @@ translate([(42-55)/2,0,29]){#cube([55,20,2.35]);}
 //} //re-enable for a true servo image
 }
 
+module servo_pulley(){
 
+T5_pulley_dia = tooth_spaceing_curvefit (0.6523,1.591,1.064, 12);
+translate([0,0,-1]){servo_standard(20, 0);}
 
-translate([0,0,10]){base_plate();}
-translate([0,0,5]){gear_module();}
+difference(){
+pulley ( "T5" , T5_pulley_dia , 1.19 , 3.264 , 12 );
+translate([0,0,-1]){#cylinder(h = 6, r=3.2, $fs=1);}
+translate([0,0,4.1]){#cylinder(h = 6, r=3.2, $fs=1);}
+}
+
+}
+
+//translate([0,0,10]){base_plate();}
+//translate([0,0,5]){gear_module();}
 //translate([55,30,-45]){rotate([0,0,-10]){
 //bottom_motor_house();
-bottom_plate();
+//bottom_plate();
+translate ([91,28,0]){servo_pulley();}
