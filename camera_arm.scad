@@ -1,5 +1,5 @@
 use <../OpenSCAD_ServoArms/servo_arm.scad>
-
+use <../MCAD/involute_gears.scad>
 //nuts etc
 /*
  *  OpenSCAD Metric Fastners Library (www.openscad.org)
@@ -124,15 +124,16 @@ module base_plate(){
 difference(){
 union(){
 cube([80,25,75]);
+//#translate([-3.5,-30,62]){rotate([90,0,90]){cube([60,25,5]);}}
 translate([80/2,25/2,0]){cylinder(h = 5, r=28, $fs=1);}
 
-translate([-3,25/2,80-16/2]){rotate([90,0,90]){#cylinder(h = 8, r=16, $fs=1);}}
+translate([-3,25/2,80-16/2]){rotate([90,0,90]){#cylinder(h = 8, r=22, $fs=1);}}//#cylinder(h = 8, r=16, $fs=1);
 translate([80-5,25/2,80-16/2]){rotate([90,0,90]){#cylinder(h = 8, r=16, $fs=1);}}
 }
 translate([5,0,5])cube([70,25,75]);
 
 //holes for side bearings
-translate([0-3,25/2,80-16/2]){rotate([90,0,90]){#cylinder(h = 7, r=22.4/2, $fs=1);}}
+//translate([0-3,25/2,80-16/2]){rotate([90,0,90]){#cylinder(h = 7, r=22.4/2, $fs=1);}}
 translate([80-4,25/2,80-16/2]){rotate([90,0,90]){#cylinder(h = 7, r=22.4/2, $fs=1);}}
 
 //holes for bolts on side bearings
@@ -146,26 +147,29 @@ translate([80/2,25/2,-14]){cylinder(h = 20, r=8/2, $fs=1);}
 //connecting holes to gear
 #translate([(80/2)-15,25/2,-14]){cylinder(h = 20, r=2, $fs=1);}
 #translate([(80/2)+15,25/2,-14]){cylinder(h = 20, r=2, $fs=1);}
+#translate([-25.5,22.5,40]){rotate([90,-90,90]){bottom_motor_house();}}
 }
 }
 
 
 module gear_module(){
-T5_pulley_dia = tooth_spaceing_curvefit (0.6523,1.591,1.064, 24, 22.2);
+//T5_pulley_dia = tooth_spaceing_curvefit (0.6523,1.591,1.064, 24, 22.2);
+
 difference(){
 union(){
-translate([80/2,25/2,-9]){pulley ( "T5" , T5_pulley_dia , 1.19 , 3.264 , 24);} //test_bevel_gear_pair();
-translate([80/2,25/2,-9.9]){cylinder(h = 11, r=22.4/2, $fs=1);}
+//translate([80/2,25/2,-9]){pulley ( "T5" , T5_pulley_dia , 1.19 , 3.264 , 24);} //test_bevel_gear_pair();
+translate([80/2,25/2,-9.9]){gear (circular_pitch=300,gear_thickness = 14,rim_thickness = 14,hub_thickness = 14,circles=0,number_of_teeth=24);}
+//translate([80/2,25/2,-1]){cylinder(h = 10, r=22.4/2, $fs=1);}
 }
 
-translate([80/2,25/2,-10]){cylinder(h = 7, r=22.4/2, $fs=1);}
+translate([80/2,25/2,-10]){#cylinder(h = 15, r=22.4/2, $fs=1);}
 translate([80/2,25/2,-10]){cylinder(h = 15, r=8.4/2, $fs=1);}
 
 
 #translate([(80/2)-15,25/2,-14]){cylinder(h = 20, r=2.1, $fs=1);}
 #translate([(80/2)+15,25/2,-14]){cylinder(h = 20, r=2.1, $fs=1);}
-#translate([(80/2)-15,25/2,-10.5]){rotate([0,0,30])flat_nut(4.2);}
-#translate([(80/2)+15,25/2,-10.5]){rotate([0,0,30])flat_nut(4.2);}
+#translate([(80/2)-15,25/2,-10]){rotate([0,0,0])flat_nut(4.2);}
+#translate([(80/2)+15,25/2,-10]){rotate([0,0,0])flat_nut(4.2);}
 }
 }
 
@@ -195,8 +199,8 @@ translate([110,20,-30]){rotate([0,0,-15]){#cube([10,15,20]);}}
 translate([30,38,-30]){rotate([0,0,-15]){#cube([20,30,20]);}}
 
 
-translate([80/2,25/2,-24]){flat_nut(8.2);}
-translate([80/2,25/2,-26]){flat_nut(8.2);}
+//translate([80/2,25/2,-24]){flat_nut(8.2);}
+translate([80/2,25/2,-26]){cylinder(h = 18, r=18/2, $fs=1);}//flat_nut(8.2);
 }
 }
 
@@ -207,7 +211,7 @@ union(){
 translate([32,20/2,0]){#cylinder(h = 36+6, r=8.4/2, $fs=1);}
 #cube([42,20,36]);
 translate([42,(20/2)-6.25/2,0]){#cube([5,6.25,40]);}
-translate([(42-55)/2,0,29]){#cube([55,20,2.35]);}
+translate([(42-60)/2,0,29]){#cube([60,20,2.35]);}
 }
 #hull(){
    translate([((42-55)/2)+2.2+1.5, 1.6+2.2, 15]) cylinder(h = 20, r=2.2, $fs=1);
@@ -234,15 +238,37 @@ translate([(42-55)/2,0,29]){#cube([55,20,2.35]);}
 
 module servo_pulley(){
 
-T5_pulley_dia = tooth_spaceing_curvefit (0.6523,1.591,1.064, 12);
-translate([0,0,-1]){servo_standard(20, 0);}
+//T5_pulley_dia = tooth_spaceing_curvefit (0.6523,1.591,1.064, 12);
 
+//translate([32,20/2,-2]){servo_standard(20, 4);}
 difference(){
-pulley ( "T5" , T5_pulley_dia , 1.19 , 3.264 , 12 );
-translate([0,0,-1]){#cylinder(h = 6, r=3.2, $fs=1);}
-translate([0,0,4.1]){#cylinder(h = 6, r=3.2, $fs=1);}
+translate([32,20/2,0]){gear (circular_pitch=300,gear_thickness = 8,rim_thickness = 8,hub_thickness = 8,circles=6,number_of_teeth=40);}
+
+//pulley ( "T5" , T5_pulley_dia , 1.19 , 3.264 , 12 );
+translate([32,20/2,0]){#cylinder(h = 2.5, r=21.2/2, $fs=1);}
+translate([32,20/2,0]){#cylinder(h = 12, r=3.3, $fs=1);}
 }
 
+}
+
+
+module camera_arm(){
+difference(){
+union(){
+cylinder(h = 53, r=22/2, $fs=1);
+translate([9,-12,0])cube([5,24,53]);
+}
+translate([10,-12.5,-2])#cube([5,25,60]);
+translate([0,0,30])#cylinder(h = 25, r=8.2/2, $fs=1);
+//translate([0,0,42])#flat_nut(8.2);
+//translate([-15,0,10])#cube([20,10,53]);
+//translate([0,-12.5,0])#cube([15,25,53]);
+#cylinder(h = 2.5, r=21/2, $fs=1);
+#cylinder(h = 80, r=8/2, $fs=1);
+translate([-20,-12.5,-2])#cube([15,25,60]);
+
+
+}
 }
 
 //translate([0,0,10]){base_plate();}
@@ -250,4 +276,5 @@ translate([0,0,4.1]){#cylinder(h = 6, r=3.2, $fs=1);}
 //translate([55,30,-45]){rotate([0,0,-10]){
 //bottom_motor_house();
 //bottom_plate();
-translate ([91,28,0]){servo_pulley();}
+translate([20,25/2,82]){rotate([90,0,90]){camera_arm();}}
+//translate([58,29,-5]){rotate([0,0,-15]){servo_pulley();}}
