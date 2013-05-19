@@ -167,45 +167,15 @@ translate([-20,5,-18]){rotate([90,0,0]){cube([150,15,10]);}}
 module wing_bone_threering(){
 difference(){
 union(){
-hull(){
-translate([0,0,0])sphere(3.5);
-translate([100,0,0])sphere(3.5);
+translate([0,-2.6,-6/2])#cube([100,2.6,6]);
+translate([75,0,6])rotate([90,0,0])cylinder(r=5,h=2.6,$fs=0.1); // middle hole bearing
+translate([100,0,0])rotate([90,0,0])#cylinder(r=5,h=2.6,$fs=0.1);
+translate([0,0,0])rotate([90,0,0])#cylinder(r=5,h=2.6,$fs=0.1);
 }
-translate([99,8/2,0]){
-rotate([90,0,0]){#cylinder(r=8/2,h=8,$fs=0.1);}}
-
-translate([75,4,6]){
-rotate([90,0,0]){
-
-#cylinder(r=8/2,h=8,$fs=0.1);
-
-
+translate([75,1,6]){rotate([90,0,0]){cylinder(r=6.4/2,h=4,$fs=0.1);}} // middle hole bearing
+translate([0,1,0]){rotate([90,0,0]){cylinder(r=6.4/2,h=4,$fs=0.1);}}//edge bearing hole
+translate([100,1,0]){rotate([90,0,0]){cylinder(r=6.4/2,h=4,$fs=0.1);}}//edge bearing hole
 }
-
-}
-
-translate([0,8/2,0]){
-rotate([90,0,0]){#cylinder(r=8/2,h=8,$fs=0.1);}}
-}
-translate([-4,1,-4]){#cube([120,7,14]);}
-translate([-4,-8,-4]){#cube([120,7,14]);}
-
-
-translate([75,5,6]){rotate([90,0,0]){cylinder(r=4.4/2,h=10,$fs=0.1);}} // middle hole
-translate([75,2.7/2,6]){rotate([90,0,0]){cylinder(r=6.4/2,h=2.7,$fs=0.1);}} // middle hole bearing
-//translate([71,2.7/2,6]){rotate([90,0,0]){#cube([8,8,2.7]);}} // middle hole opening
-translate([0,5,-0]){rotate([90,0,0]){cylinder(r=3.6/2,h=10,$fs=0.1);}}//edge hole
-translate([99,5,-0]){rotate([90,0,0]){cylinder(r=3.6/2,h=10,$fs=0.1);}}//edge hole
-
-translate([0,1,0]){rotate([90,0,0]){cylinder(r=6.4/2,h=2.5,$fs=0.1);}}//edge bearing hole
-translate([99,1,0]){rotate([90,0,0]){cylinder(r=6.4/2,h=2.5,$fs=0.1);}}//edge bearing hole
-
-
-//translate([-20,5,3]){rotate([90,0,0]){#cube([130,15,10]);}}
-translate([-20,5,-18]){rotate([90,0,0]){#cube([150,15,10]);}}
-
-}
-
 }
 
 module wing_tip_bone(){
@@ -533,5 +503,5 @@ translate([-20,-3,0]){#cylinder(r=3.4/2,h=5,$fs=0.1);}
 //feather();
 //body_circle();
 //triangle();
-wing_bone_threering();
+rotate([90,0,0])wing_bone_threering();
 //power_wheels();
