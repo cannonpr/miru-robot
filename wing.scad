@@ -167,10 +167,13 @@ translate([-20,5,-18]){rotate([90,0,0]){cube([150,15,10]);}}
 module wing_bone_threering(){
 difference(){
 union(){
-translate([0,-2.6,-6/2])#cube([100,2.6,6]);
-translate([75,0,6])rotate([90,0,0])cylinder(r=5,h=2.6,$fs=0.1); // middle hole bearing
-translate([100,0,0])rotate([90,0,0])#cylinder(r=5,h=2.6,$fs=0.1);
-translate([0,0,0])rotate([90,0,0])#cylinder(r=5,h=2.6,$fs=0.1);
+translate([0,-2.6,-4/2])#cube([100,2.6,4]);
+translate([75,0,6])rotate([90,0,0])cylinder(r=7,h=2.6,$fs=0.1); // middle hole bearing
+//translate([70,0,1])rotate([90,0,0])cube([10,10,2.6]); // middle hole box
+translate([100,0,0])rotate([90,0,0])#cylinder(r=7,h=2.6,$fs=0.1);
+//translate([95,0,-10/2])rotate([90,0,0])cube([10,10,2.6]); // middle hole bearing
+translate([0,0,0])rotate([90,0,0])#cylinder(r=7,h=2.6,$fs=0.1);
+//translate([-5,0,-10/2])rotate([90,0,0])cube([10,10,2.6]); // middle hole bearing
 }
 translate([75,1,6]){rotate([90,0,0]){cylinder(r=6.4/2,h=4,$fs=0.1);}} // middle hole bearing
 translate([0,1,0]){rotate([90,0,0]){cylinder(r=6.4/2,h=4,$fs=0.1);}}//edge bearing hole
@@ -387,14 +390,19 @@ translate([40,0,0]){#cylinder(r=8/2,h=2,$fs=0.1);}
 
 module triangle(){
 difference(){
+union(){
 hull(){
 translate([0,0,0]){#cylinder(r=5,h=2,$fs=0.1);}
 translate([50,20,0]){#cylinder(r=5,h=2,$fs=0.1);}
 translate([-50,20,0]){#cylinder(r=5,h=2,$fs=0.1);}
 }
-translate([0,0,0]){#cylinder(r=3.4/2,h=2,$fs=0.1);}
-translate([50,20,0]){#cylinder(r=3.4/2,h=2,$fs=0.1);}
-translate([-50,20,0]){#cylinder(r=3.4/2,h=2,$fs=0.1);}
+translate([0,0,0]){#cylinder(r=5/2,h=8,$fs=0.1);}
+translate([50,20,0]){#cylinder(r=5/2,h=8,$fs=0.1);}
+translate([-50,20,0]){#cylinder(r=5/2,h=8,$fs=0.1);}
+}
+translate([0,0,0]){#cylinder(r=3.4/2,h=8,$fs=0.1);}
+translate([50,20,0]){#cylinder(r=3.4/2,h=8,$fs=0.1);}
+translate([-50,20,0]){#cylinder(r=3.4/2,h=8,$fs=0.1);}
 
 hull(){
 translate([0,10,0]){#cylinder(r=1,h=2,$fs=0.1);}
@@ -502,6 +510,6 @@ translate([-20,-3,0]){#cylinder(r=3.4/2,h=5,$fs=0.1);}
 //wing();
 //feather();
 //body_circle();
-//triangle();
-rotate([90,0,0])wing_bone_threering();
+triangle();
+//rotate([90,0,0])wing_bone_threering();
 //power_wheels();
