@@ -142,27 +142,18 @@ translate([-20,5,-18]){rotate([90,0,0]){#cube([150,15,10]);}}
 module wing_bone_tworing(){
 difference(){
 union(){
-hull(){
-translate([0,0,0])sphere(3.5);
-translate([100,0,0])sphere(3.5);
+translate([0,-2.6,-4/2])#cube([100,2.6,4]);
+//translate([70,0,1])rotate([90,0,0])cube([10,10,2.6]); // middle hole box
+translate([100,0,0])rotate([90,0,0])#cylinder(r=7,h=2.6,$fs=0.1);
+//translate([95,0,-10/2])rotate([90,0,0])cube([10,10,2.6]); // middle hole bearing
+translate([0,0,0])rotate([90,0,0])#cylinder(r=7,h=2.6,$fs=0.1);
+//translate([-5,0,-10/2])rotate([90,0,0])cube([10,10,2.6]); // middle hole bearing
 }
 
-translate([99,8/2,0]){
-rotate([90,0,0]){#cylinder(r=8/2,h=8,$fs=0.1);}}
-translate([0,8/2,0]){
-rotate([90,0,0]){#cylinder(r=8/2,h=8,$fs=0.1);}}
-}
-translate([88.4,-3.5/2,-4]){#cube([15,3.5,8]);}
-translate([-4,-3.5/2,-4]){#cube([15,3.5,8]);}
-translate([99,5,-0]){rotate([90,0,0]){cylinder(r=3.6/2,h=10,$fs=0.1);}}
-translate([0,5,-0]){rotate([90,0,0]){cylinder(r=3.6/2,h=10,$fs=0.1);}}
-
-
-translate([-20,5,3]){rotate([90,0,0]){cube([130,15,10]);}}
-translate([-20,5,-18]){rotate([90,0,0]){cube([150,15,10]);}}
+translate([0,1,0]){rotate([90,0,0]){cylinder(r=6.4/2,h=4,$fs=0.1);}}//edge bearing hole
+translate([100,1,0]){rotate([90,0,0]){cylinder(r=6.4/2,h=4,$fs=0.1);}}//edge bearing hole
 }
 }
-
 
 module wing_bone_threering(){
 difference(){
@@ -396,11 +387,11 @@ translate([0,0,0]){#cylinder(r=5,h=2,$fs=0.1);}
 translate([50,20,0]){#cylinder(r=5,h=2,$fs=0.1);}
 translate([-50,20,0]){#cylinder(r=5,h=2,$fs=0.1);}
 }
-translate([0,0,0]){#cylinder(r=5/2,h=8,$fs=0.1);}
-translate([50,20,0]){#cylinder(r=5/2,h=8,$fs=0.1);}
-translate([-50,20,0]){#cylinder(r=5/2,h=8,$fs=0.1);}
+translate([0,0,0]){#cylinder(r=5,h=17.8,$fs=0.1);}
+translate([50,20,0]){#cylinder(r=5,h=8,$fs=0.1);}
+translate([-50,20,0]){#cylinder(r=5,h=8,$fs=0.1);}
 }
-translate([0,0,0]){#cylinder(r=3.4/2,h=8,$fs=0.1);}
+translate([0,0,0]){#cylinder(r=3.4/2,h=20,$fs=0.1);}
 translate([50,20,0]){#cylinder(r=3.4/2,h=8,$fs=0.1);}
 translate([-50,20,0]){#cylinder(r=3.4/2,h=8,$fs=0.1);}
 
@@ -482,15 +473,15 @@ union(){
 translate([20,-15,0]){gear (circular_pitch=130,gear_thickness = 2,rim_thickness = 4,hub_thickness = 4,circles=6,number_of_teeth=55);}
 //translate([-20,-15,0]){gear (circular_pitch=130,gear_thickness = 2,rim_thickness = 4,hub_thickness = 4,circles=6,number_of_teeth=55);}
 
-translate([20,-3,0]){#cylinder(r=6/2,h=4,$fs=0.1);}
+translate([20,-3,0]){#cylinder(r=9/2,h=4,$fs=0.1);}
 //translate([-20,-3,0]){#cylinder(r=6/2,h=4,$fs=0.1);}
 }
 
 translate([0,-30,0]){#cylinder(r=3.4/2,h=5,$fs=0.1);}
-translate([20,-15,0]){#cylinder(r=4.4/2,h=5,$fs=0.1);}
+translate([20,-15,0]){#cylinder(r=6.2/2,h=5,$fs=0.1);}
 translate([-20,-15,0]){#cylinder(r=4.4/2,h=5,$fs=0.1);}
 
-translate([20,-3,0]){#cylinder(r=3.4/2,h=5,$fs=0.1);}
+translate([20,-3,0]){#cylinder(r=6.4/2,h=5,$fs=0.1);}
 translate([-20,-3,0]){#cylinder(r=3.4/2,h=5,$fs=0.1);}
 
 }
@@ -505,11 +496,11 @@ translate([-20,-3,0]){#cylinder(r=3.4/2,h=5,$fs=0.1);}
 //wing_bone();
 //wing_tip_bone(3.5);
 //rotate([90,0,0])wing_tip_bone_linkage(3.5);
-//wing_bone_tworing();
+rotate([90,0,0])wing_bone_tworing();
 //variable_linkage();
 //wing();
 //feather();
 //body_circle();
-triangle();
+//triangle();
 //rotate([90,0,0])wing_bone_threering();
 //power_wheels();
